@@ -31,7 +31,7 @@ function theme_folder_toolbar_form($form) {
       $links[$name]['fragment'] = $name;
       $links[$name]['attributes'] = array('class' => 'folder-toolbar-link');
 
-      $form[$name]['#attributes'] = array('id' => $name, 'class' => 'folder-toolbar-fieldset');
+      $form[$name]['#attributes'] = array('id' => $name, 'class' => 'folder-toolbar-fieldset fieldset titled');
       unset($buttons['preview']);
       unset($buttons['preview_changes']);
       $form[$name]['buttons'] = $buttons;
