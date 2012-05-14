@@ -293,7 +293,6 @@ function atrium_folders_preprocess_views_view_table(&$vars) {
  */
 function atrium_folders_preprocess_views_view_unformatted(&$vars) {
   if ($vars['view']->name == 'folders_navigation' || $vars['view']->name == 'folders_folders') {
-
     $trail = array();
     $node = menu_get_object();
     foreach (book_build_active_trail($vars['node']->book) as $item) {
@@ -402,6 +401,19 @@ function _atrium_folders_get_node($op, $type, $id) {
 }
 
 /**
+ * Helper: get files within folder
+ */
+function _atrium_folders_get_files_in_folder($folder_nid) {
+  $files = array();
+  if ($result = db_query("SELECT nid, fid, description FROM {upload} WHERE nid = %d ", $folder_nid)) {
+    while ($file = db_fetch_object($result)) {
+      $files[] = $file;
+    }
+  }
+  return $files;
+}
+
+/**
  * Helper: return DOM id string.
  */
 function _atrium_folders_dom_id() {
@@ -409,3 +421,46 @@ function _atrium_folders_dom_id() {
   return implode('-', $args);
 }
 
+
+/**
+ * Implements hook_block().
+ */
+function atrium_folders_block($op = 'list', $delta = 0, $edit = array()) {
+  switch ($op) {
+    case 'list':
+      $block[0] = array('info' => t('Latest group files'), 'cache' => BLOCK_CACHE_PER_USER); // @TODO: Cache per group?
+      return $block;
+
+    case 'view':
+      if (user_access('access content')) { // @TODO: Check for access to group
+        switch ($delta) {
+          case 0:
+            if ($og_context_group = og_determine_context()) {
+              $group_nid = $og_context_group->nid;
+              $active_space = spaces_set_space();
+              //if (isset($active_space->type) && $active_space->type == 'og') {
+              //  $space_gid = $active_space->id; // == $group_nid
+              //}
+
+              // @TODO: Reduce the following to a single query:
+              $all_group_nids = og_group_child_nids($group_nid);
+              $files_in_group = array();
+              foreach ($all_group_nids as $nid) {
+                $node = node_load($nid);
+                if ($node->type == 'folder') {
+                  $files = _atrium_folders_get_files_in_folder($nid);
+                  foreach($files as $file) {
+                    $files_in_group[] = $file->description;
+                  }
+                }
+              }
+
+              $block['subject'] = t('Latest files in %group', array('%group' => $og_context_group->title));
+              $block['content'] = theme('item_list', $files_in_group);
+            }
+            break;
+        }
+      }
+      return $block;
+  }
+}
