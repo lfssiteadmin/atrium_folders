@@ -1,16 +1,17 @@
-Atrium Folders: a file repository for Open Atrium
+Atrium Folders: a file repository for Drupal Organic Groups
+https://github.com/jeffschuler/atrium_folders
 
-Copyright (C) 2011 Nuvole
-http://nuvole.org
-info@nuvole.org
+## About
 
-The latest version can be downloaded from
-https://github.com/nuvoleweb
+Forked from Nuvole's Atrium Folders,
+https://github.com/nuvoleweb/atrium_folders
+and modified for use on a non-OpenAtrium Drupal site running Organic Groups.
 
-Installation instructions: place the contents of this directory in an
-atrium_folders subdirectory under sites/all/modules/features in your
-Open Atrium installation, then enable the feature from the Features
-administration panel and activate it on a per-group basis.
+## Installation
+
+Place the contents of this directory in an atrium_folders subdirectory under
+sites/all/modules/features of your Drupal installation, then enable the feature
+from the Features administration panel and activate it on a per-group basis.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as
@@ -26,6 +27,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 ## Credits
+
+Original Copyright (C) 2011 Nuvole | http://nuvole.org | info@nuvole.org
 
 Thanks to Education Northwest http://educationnorthwest.org for sponsoring the 
 development needed for jQuery Update compatibility.
