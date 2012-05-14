@@ -1149,6 +1149,169 @@ function atrium_folders_views_default_views() {
 
   $views[$view->name] = $view;
 
+  $handler = $view->new_display('block', 'Group folders Block', 'block_2');
+  $handler->override_option('fields', array(
+    'icon' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => FALSE,
+        'text' => '',
+        'make_link' => FALSE,
+        'path' => '',
+        'alt' => '',
+        'link_class' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'trim' => FALSE,
+        'max_length' => '',
+        'word_boundary' => TRUE,
+        'ellipsis' => TRUE,
+        'strip_tags' => FALSE,
+        'html' => FALSE,
+      ),
+      'empty' => '',
+      'hide_empty' => FALSE,
+      'empty_zero' => FALSE,
+      'exclude' => 0,
+      'id' => 'icon',
+      'table' => 'atrium_folders',
+      'field' => 'icon',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+    ),
+    'title' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'link_class' => '',
+        'alt' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'link_to_node' => 1,
+      'exclude' => 0,
+      'id' => 'title',
+      'table' => 'node',
+      'field' => 'title',
+      'relationship' => 'none',
+    ),
+    'toolbox' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => FALSE,
+        'text' => '',
+        'make_link' => FALSE,
+        'path' => '',
+        'alt' => '',
+        'link_class' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'trim' => FALSE,
+        'max_length' => '',
+        'word_boundary' => TRUE,
+        'ellipsis' => TRUE,
+        'strip_tags' => FALSE,
+        'html' => FALSE,
+      ),
+      'empty' => '',
+      'hide_empty' => FALSE,
+      'empty_zero' => FALSE,
+      'exclude' => 0,
+      'id' => 'toolbox',
+      'table' => 'atrium_folders',
+      'field' => 'toolbox',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+    ),
+    'depth' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'absolute' => 0,
+        'link_class' => '',
+        'alt' => '',
+        'rel' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'hide_alter_empty' => 1,
+      'set_precision' => FALSE,
+      'precision' => 0,
+      'decimal' => '.',
+      'separator' => ',',
+      'format_plural' => 0,
+      'format_plural_singular' => '1',
+      'format_plural_plural' => '@count',
+      'prefix' => '',
+      'suffix' => '',
+      'exclude' => 1,
+      'id' => 'depth',
+      'table' => 'book_menu_links',
+      'field' => 'depth',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+    ),
+  ));
+  $handler->override_option('title', 'Group folders');
+  $handler->override_option('header', '<?php
+$group = og_determine_context();
+print l(\'+ New top-level group folder\', $group->purl. \'/node/add/folder\');
+?>');
+  $handler->override_option('header_format', '2');
+  $handler->override_option('header_empty', 0);
+  $handler->override_option('style_plugin', 'default');
+  $handler->override_option('style_options', array(
+    'grouping' => '',
+  ));
+  $handler->override_option('row_options', array(
+    'inline' => array(
+      'icon' => 'icon',
+      'title' => 'title',
+      'toolbox' => 'toolbox',
+      'depth' => 'depth',
+    ),
+    'separator' => '',
+    'hide_empty' => 0,
+  ));
+  $handler->override_option('block_description', '');
+  $handler->override_option('block_caching', -1);
+
   // Exported view: folders_navigation
   $view = new view;
   $view->name = 'folders_navigation';
