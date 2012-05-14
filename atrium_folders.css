@@ -195,6 +195,28 @@ td.views-field.icon {
 
 
 /**
+ * Folder listing in group --------------------------------------------------
+ */
+.view-folders-folders.view-display-id-block_2 .views-row {
+  padding: 5px 10px;
+}
+.view-folders-folders.view-display-id-block_2 .views-row.depth-1 { padding-left: 10px; }
+.view-folders-folders.view-display-id-block_2 .views-row.depth-2 { padding-left: 30px; }
+.view-folders-folders.view-display-id-block_2 .views-row.depth-3 { padding-left: 50px; }
+.view-folders-folders.view-display-id-block_2 .views-row.depth-4 { padding-left: 70px; }
+.view-folders-folders.view-display-id-block_2 .views-row.depth-5 { padding-left: 90px; }
+.view-folders-folders.view-display-id-block_2 .views-row.depth-6 { padding-left: 110px; }
+.view-folders-folders.view-display-id-block_2 .views-row.depth-7 { padding-left: 130px; }
+.view-folders-folders.view-display-id-block_2 .views-row.depth-8 { padding-left: 150px; }
+.view-folders-folders.view-display-id-block_2 .views-row.depth-9 { padding-left: 170px; }
+.view-folders-folders.view-display-id-block_2 .fileview,
+.view-folders-folders.view-display-id-block_2 .fileview a {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
+/**
  * Modal Tooltip ------------------------------------------------------
  */
 .modal-tooltip-container {

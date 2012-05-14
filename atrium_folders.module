@@ -292,7 +292,7 @@ function atrium_folders_preprocess_views_view_table(&$vars) {
  * Implementation of hook_preprocess_views_view_unformatted()
  */
 function atrium_folders_preprocess_views_view_unformatted(&$vars) {
-  if ($vars['view']->name == 'folders_navigation') {
+  if ($vars['view']->name == 'folders_navigation' || $vars['view']->name == 'folders_folders') {
 
     $trail = array();
     $node = menu_get_object();
