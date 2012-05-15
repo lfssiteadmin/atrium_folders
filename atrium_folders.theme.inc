@@ -54,3 +54,22 @@ function theme_folder_toolbar_form($form) {
 function theme_textfields($element) {
   return $element['#children'];
 }
+
+/**
+ * Theme list of files
+ *
+ * $files: array of associative arrays, each including:
+ *   filename, filepath, filemime, filesize, description
+ */
+function theme_atrium_folders_file_list($files) {
+  $header = '';
+  $rows = array();
+  dpm($files);
+  foreach ($files as $file) {
+    $row = array();
+    $row['file'] = l($file['filename'], file_create_url($file['filename']));
+    $rows[] = $row;
+  }
+  dpm($rows);
+  return theme('table', $header, $rows);
+}

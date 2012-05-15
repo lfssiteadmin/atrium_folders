@@ -402,6 +402,9 @@ function _atrium_folders_get_node($op, $type, $id) {
 
 /**
  * Helper: get files within folder
+ *
+ * returns: array of file objects, each including:
+ *  nid, fid, description
  */
 function _atrium_folders_get_files_in_folder($folder_nid) {
   $files = array();
@@ -414,13 +417,34 @@ function _atrium_folders_get_files_in_folder($folder_nid) {
 }
 
 /**
+ * Helper: get all files in group
+ *
+ * returns: array of files, each an associative array with keys:
+ *  filename, filepath, filemime, filesize, description
+ */
+function _atrium_folders_get_files_in_group($gid, $limit=NULL) {
+  $files = array();
+  $result = db_query_range("SELECT f.filename, f.filepath, f.filemime, f.filesize, u.description
+    FROM {upload} u
+    INNER JOIN {files} f
+      ON u.fid = f.fid
+    INNER JOIN {og_ancestry} og
+      ON og.nid = u.nid
+    WHERE group_nid = %d
+    ORDER BY u.fid DESC", $gid, 0, $limit);
+  while ($file = db_fetch_array($result)) {
+    $files[] = $file;
+  }
+  return $files;
+}
+
+/**
  * Helper: return DOM id string.
  */
 function _atrium_folders_dom_id() {
   $args = func_get_args();
   return implode('-', $args);
 }
-
 
 /**
  * Implements hook_block().
@@ -435,28 +459,25 @@ function atrium_folders_block($op = 'list', $delta = 0, $edit = array()) {
       if (user_access('access content')) { // @TODO: Check for access to group
         switch ($delta) {
           case 0:
-            if ($og_context_group = og_determine_context()) {
-              $group_nid = $og_context_group->nid;
-              $active_space = spaces_set_space();
+            if ($group = og_determine_context()) {
+
+              // @TODO: Should this be more space-centric than group-centric?
+              //$active_space = spaces_set_space();
               //if (isset($active_space->type) && $active_space->type == 'og') {
-              //  $space_gid = $active_space->id; // == $group_nid
+              //  $space_id = $active_space->id;
               //}
 
-              // @TODO: Reduce the following to a single query:
-              $all_group_nids = og_group_child_nids($group_nid);
-              $files_in_group = array();
-              foreach ($all_group_nids as $nid) {
-                $node = node_load($nid);
-                if ($node->type == 'folder') {
-                  $files = _atrium_folders_get_files_in_folder($nid);
-                  foreach($files as $file) {
-                    $files_in_group[] = $file->description;
-                  }
-                }
-              }
+              $files = _atrium_folders_get_files_in_group($group->nid, 10);
+              theme('folders_file_list', $files);
 
-              $block['subject'] = t('Latest files in %group', array('%group' => $og_context_group->title));
-              $block['content'] = theme('item_list', $files_in_group);
+              $block['subject'] = t('Latest files in %group', array('%group' => $group->title));
+              if (!empty($files)) {
+                //$block['content'] = theme('atrium_folders_file_list', $files);
+                $block['content'] = theme_atrium_folders_file_list($files);
+              } else {
+                $block['content'] = t('No files uploaded yet. See !group_folders to upload files.',
+                  array('!group_folders' => l('Group Folders', $group->purl . '/folders')));
+              }
             }
             break;
         }
