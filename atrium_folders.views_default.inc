@@ -1295,6 +1295,11 @@ print l(\'+ New top-level group folder\', $group->purl. \'/node/add/folder\');
 ?>');
   $handler->override_option('header_format', '2');
   $handler->override_option('header_empty', 0);
+  $handler->override_option('empty', 'No folders in this group, yet. <?php
+$group = og_determine_context();
+print l(\'Add one.\', $group->purl. \'/node/add/folder\');
+?>');
+  $handler->override_option('empty_format', '2');
   $handler->override_option('style_plugin', 'default');
   $handler->override_option('style_options', array(
     'grouping' => '',
