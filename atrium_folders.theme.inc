@@ -64,12 +64,12 @@ function theme_textfields($element) {
 function theme_atrium_folders_file_list($files) {
   $header = '';
   $rows = array();
-  dpm($files);
   foreach ($files as $file) {
     $row = array();
     $row['file'] = l($file['filename'], file_create_url($file['filename']));
     $rows[] = $row;
   }
-  dpm($rows);
-  return theme('table', $header, $rows);
+  $table = theme('table', $header, $rows);
+  $description = '<p>Files uploaded to group folders and other group content.</p>';
+  return $description . $table;
 }
