@@ -267,7 +267,6 @@ td.views-field.icon {
   -moz-border-radius:3px 0px 3px 3px;
   -webkit-border-radius:3px 0px 3px 3px;
   border: 0px;
-  color: #fff;
   margin: 0;
   padding:0;
   text-align:left;
@@ -360,6 +359,10 @@ td.views-field.icon {
   text-decoration: underline;
 }
 
+.view-folders-files .ctools-modal-content .form-item {
+  width: 340px;
+  white-space: normal;
+}
 
 /**
  * Buttons from Atrium ------------------------------------------------------
