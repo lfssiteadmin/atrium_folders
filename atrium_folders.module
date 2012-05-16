@@ -29,17 +29,29 @@ function atrium_folders_help($path, $arg) {
   if (($path == 'help#atrium_folders') || context_isset('context', 'spaces-feature-folders')) {
     switch ($path) {
       case 'node/add/folder':
+        $help = '';
+        $help .= '<h3>'. t('Folders') .'</h3>';
+        $help .= '<p>'. t('Create a new folder. Subfolders can be made and
+          files can be attached using this form, or after the folder has been
+          created.') .'</p>';
+        return $help;
+
       case 'node/%/edit':
         $help = '';
         $help .= '<h3>'. t('Folders') .'</h3>';
-        $help .= '<p>'. t('Provide help here') .'</p>';
+        $help .= '<p>'. t('This folder <em>Edit</em> form can be used to edit a folder,
+          but more user-friendly file and folder management tools are available
+          by <em>View</em>ing the folder.')
+           . '</p>';
         return $help;
 
       case 'help#atrium_folders':
       default:
         $help = '';
         $help .= '<h3>'. t('Folders') .'</h3>';
-        $help .= '<p>'. t('Provide help here') .'</p>';
+        $help .= '<p>'. t('Use folders to store files in groups. Files can be
+          renamed, moved, (within the folder hierarchy,) and deleted using the
+          tool buttons to the right of each file\'s information.') .'</p>';
         return $help;
     }
   }
