@@ -147,6 +147,7 @@ function atrium_folders_form_alter(&$form, &$form_state, $form_id) {
     $form['book']['weight']['#description'] = t('Folders at a given level are ordered first by weight and then by name.');
     $form['book']['bid']['#title'] = t('Folders');
     $form['book']['bid']['#options']['new'] = '<'. t('Create a new folder') .'>';
+    $form['book']['bid']['#default_value'] = empty($form['book']['bid']['#default_value']) ? 'new' : $form['book']['bid']['#default_value'];
     $form['book']['bid']['#description'] = t('Your folder will be a part of the selected folder tree.');
     $form['book']['pick-book']['#value'] = t('Change folder (update list of parents)');
     $form['body_field']['body']['#rows'] = 2; // Reduce body height
