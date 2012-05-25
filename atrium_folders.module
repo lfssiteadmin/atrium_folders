@@ -469,17 +469,11 @@ function atrium_folders_block($op = 'list', $delta = 0, $edit = array()) {
       return $block;
 
     case 'view':
-      if (user_access('access content')) { // @TODO: Check for access to group
+      $group = og_determine_context();
         switch ($delta) {
           case 0:
-            if ($group = og_determine_context()) {
-
-              // @TODO: Should this be more space-centric than group-centric?
-              //$active_space = spaces_set_space();
-              //if (isset($active_space->type) && $active_space->type == 'og') {
-              //  $space_id = $active_space->id;
-              //}
-
+            $access = user_access('administer organic groups') || !$group->og_private || og_is_group_member($group->nid);
+            if (og_is_group_member($group)) {
               $files = _atrium_folders_get_files_in_group($group->nid, 10);
               theme('folders_file_list', $files);
 
@@ -494,7 +488,6 @@ function atrium_folders_block($op = 'list', $delta = 0, $edit = array()) {
             }
             break;
         }
-      }
       return $block;
   }
 }
