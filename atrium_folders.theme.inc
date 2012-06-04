@@ -61,7 +61,7 @@ function theme_textfields($element) {
  * $files: array of associative arrays, each including:
  *   filename, filepath, filemime, filesize, description
  */
-function theme_atrium_folders_file_list($files) {
+function theme_folders_file_list($files = array()) {
   $header = '';
   $rows = array();
   foreach ($files as $file) {
