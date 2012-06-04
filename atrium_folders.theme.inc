@@ -67,7 +67,8 @@ function theme_folders_file_list($files = array()) {
   foreach ($files as $file) {
     $row = array();
     $extension = strtolower(substr(strrchr($file['filename'], '.'), 1));
-    $row['icon'] = '<div class="mime-' . $extension . '"><div class="fileview mime"></div></div>';
+    $icon = '<div class="mime-' . $extension . '"><div class="fileview mime"></div></div>';
+    $row['icon'] = l($icon, file_create_url($file['filename']), array('html' => TRUE));
     $row['file'] = l($file['filename'], file_create_url($file['filename']));
     $rows[] = $row;
   }
