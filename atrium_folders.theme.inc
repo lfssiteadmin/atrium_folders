@@ -66,10 +66,13 @@ function theme_folders_file_list($files = array()) {
   $rows = array();
   foreach ($files as $file) {
     $row = array();
+    $extension = strtolower(substr(strrchr($file['filename'], '.'), 1));
+    $row['icon'] = '<div class="mime-' . $extension . '"><div class="fileview mime"></div></div>';
     $row['file'] = l($file['filename'], file_create_url($file['filename']));
     $rows[] = $row;
   }
   $table = theme('table', $header, $rows);
   $description = '<p>Files uploaded to group folders and other group content.</p>';
-  return $description . $table;
+  $markup = '<div id="attach-wrapper">' . $description . $table . '</div>'; // So iTweak Uploads adds MIME icons
+  return $markup;
 }
