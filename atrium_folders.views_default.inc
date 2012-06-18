@@ -11,12 +11,18 @@ function atrium_folders_views_default_views() {
   $view->name = 'folders';
   $view->description = 'Display folders.';
   $view->tag = 'atrium';
-  $view->view_php = '';
   $view->base_table = 'node';
-  $view->is_cacheable = FALSE;
-  $view->api_version = 2;
+  $view->core = 0;
+  $view->api_version = '2';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
+  $handler->override_option('relationships', array(
+    'nid' => array(
+      'id' => 'nid',
+      'table' => 'book_parent',
+      'field' => 'nid',
+    ),
+  ));
   $handler->override_option('fields', array(
     'title' => array(
       'label' => '',
@@ -48,6 +54,11 @@ function atrium_folders_views_default_views() {
       'field' => 'title',
       'relationship' => 'none',
     ),
+    'depth' => array(
+      'id' => 'depth',
+      'table' => 'book_menu_links',
+      'field' => 'depth',
+    ),
   ));
   $handler->override_option('sorts', array(
     'p' => array(
@@ -63,6 +74,112 @@ function atrium_folders_views_default_views() {
       'table' => 'book_menu_links',
       'field' => 'weight',
       'relationship' => 'none',
+    ),
+  ));
+  $handler->override_option('arguments', array(
+    'group_nid' => array(
+      'default_action' => 'default',
+      'style_plugin' => 'default_summary',
+      'style_options' => array(),
+      'wildcard' => 'all',
+      'wildcard_substitution' => 'All',
+      'title' => '',
+      'breadcrumb' => '',
+      'default_argument_type' => 'og_group_node',
+      'default_argument' => '',
+      'validate_type' => 'none',
+      'validate_fail' => 'not found',
+      'break_phrase' => 0,
+      'not' => 0,
+      'id' => 'group_nid',
+      'table' => 'og_ancestry',
+      'field' => 'group_nid',
+      'validate_user_argument_type' => 'uid',
+      'validate_user_roles' => array(
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+      ),
+      'me_redirect' => 0,
+      'me_validate_user_argument_type' => 'uid',
+      'me_validate_user_roles' => array(
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+      ),
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+      'default_options_div_prefix' => '',
+      'default_taxonomy_tid_term_page' => 0,
+      'default_taxonomy_tid_node' => 0,
+      'default_taxonomy_tid_limit' => 0,
+      'default_taxonomy_tid_vids' => array(
+        8 => 0,
+        9 => 0,
+        7 => 0,
+        2 => 0,
+        5 => 0,
+        4 => 0,
+        1 => 0,
+        6 => 0,
+        3 => 0,
+      ),
+      'default_argument_user' => 0,
+      'default_argument_fixed' => '',
+      'default_argument_image_size' => '_original',
+      'default_argument_php' => '',
+      'validate_argument_node_type' => array(
+        'blog' => 0,
+        'image' => 0,
+        'mass_contact' => 0,
+        'event' => 0,
+        'business_case' => 0,
+        'businesssupporters' => 0,
+        'communityassets' => 0,
+        'existing_business' => 0,
+        'people_tracking' => 0,
+        'folder' => 0,
+        'panel' => 0,
+        'book' => 0,
+        'group' => 0,
+        'help_page' => 0,
+        'idea' => 0,
+        'page' => 0,
+        'question' => 0,
+        'story' => 0,
+        'wikipage' => 0,
+      ),
+      'validate_argument_node_access' => 0,
+      'validate_argument_nid_type' => 'nid',
+      'validate_argument_vocabulary' => array(
+        8 => 0,
+        9 => 0,
+        7 => 0,
+        2 => 0,
+        5 => 0,
+        4 => 0,
+        1 => 0,
+        6 => 0,
+        3 => 0,
+      ),
+      'validate_argument_type' => 'tid',
+      'validate_argument_transform' => 0,
+      'validate_user_restrict_roles' => 0,
+      'image_size' => array(
+        '_original' => '_original',
+        'thumbnail' => 'thumbnail',
+        'preview' => 'preview',
+      ),
+      'validate_argument_is_member' => '0',
+      'validate_argument_group_node_type' => array(
+        'group' => 0,
+      ),
+      'validate_argument_php' => '',
+      'me_validate_user_restrict_roles' => 0,
     ),
   ));
   $handler->override_option('filters', array(
@@ -108,6 +225,239 @@ function atrium_folders_views_default_views() {
     'grouping' => '',
   ));
   $handler = $view->new_display('page', 'Page', 'page_1');
+  $handler->override_option('relationships', array());
+  $handler->override_option('fields', array(
+    'nid' => array(
+      'label' => 'Nid',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'absolute' => 0,
+        'link_class' => '',
+        'alt' => '',
+        'rel' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'hide_alter_empty' => 1,
+      'link_to_node' => 0,
+      'spaces' => array(
+        'frontpage' => 0,
+        'type' => 'spaces_og',
+      ),
+      'exclude' => 1,
+      'id' => 'nid',
+      'table' => 'node',
+      'field' => 'nid',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+    ),
+    'depth' => array(
+      'label' => 'Depth',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 0,
+        'path' => '',
+        'absolute' => 0,
+        'link_class' => '',
+        'alt' => '',
+        'rel' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'hide_alter_empty' => 1,
+      'set_precision' => FALSE,
+      'precision' => 0,
+      'decimal' => '.',
+      'separator' => ',',
+      'format_plural' => 0,
+      'format_plural_singular' => '1',
+      'format_plural_plural' => '@count',
+      'prefix' => '',
+      'suffix' => '',
+      'exclude' => 1,
+      'id' => 'depth',
+      'table' => 'book_menu_links',
+      'field' => 'depth',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+    ),
+    'title' => array(
+      'label' => '',
+      'alter' => array(
+        'alter_text' => 0,
+        'text' => '',
+        'make_link' => 1,
+        'path' => 'node/[nid]',
+        'absolute' => 0,
+        'link_class' => 'folder_depth_[depth]',
+        'alt' => '',
+        'rel' => '',
+        'prefix' => '',
+        'suffix' => '',
+        'target' => '',
+        'help' => '',
+        'trim' => 0,
+        'max_length' => '',
+        'word_boundary' => 1,
+        'ellipsis' => 1,
+        'html' => 0,
+        'strip_tags' => 0,
+      ),
+      'empty' => '',
+      'hide_empty' => 0,
+      'empty_zero' => 0,
+      'hide_alter_empty' => 1,
+      'link_to_node' => 1,
+      'spaces' => array(
+        'frontpage' => 0,
+        'type' => 'spaces_og',
+      ),
+      'exclude' => 0,
+      'id' => 'title',
+      'table' => 'node',
+      'field' => 'title',
+      'relationship' => 'none',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+    ),
+  ));
+  $handler->override_option('arguments', array(
+    'group_nid' => array(
+      'default_action' => 'default',
+      'style_plugin' => 'default_summary',
+      'style_options' => array(),
+      'wildcard' => 'all',
+      'wildcard_substitution' => 'All',
+      'title' => '',
+      'breadcrumb' => '',
+      'default_argument_type' => 'og_group_node',
+      'default_argument' => '',
+      'validate_type' => 'none',
+      'validate_fail' => 'ignore',
+      'break_phrase' => 0,
+      'not' => 0,
+      'id' => 'group_nid',
+      'table' => 'og_ancestry',
+      'field' => 'group_nid',
+      'validate_user_argument_type' => 'uid',
+      'validate_user_roles' => array(
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+      ),
+      'me_redirect' => 0,
+      'me_validate_user_argument_type' => 'uid',
+      'me_validate_user_roles' => array(
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+      ),
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+      'default_options_div_prefix' => '',
+      'default_taxonomy_tid_term_page' => 0,
+      'default_taxonomy_tid_node' => 0,
+      'default_taxonomy_tid_limit' => 0,
+      'default_taxonomy_tid_vids' => array(
+        8 => 0,
+        9 => 0,
+        7 => 0,
+        2 => 0,
+        5 => 0,
+        4 => 0,
+        1 => 0,
+        6 => 0,
+        3 => 0,
+      ),
+      'default_argument_user' => 0,
+      'default_argument_fixed' => '',
+      'default_argument_image_size' => '_original',
+      'default_argument_php' => '',
+      'validate_argument_node_type' => array(
+        'blog' => 0,
+        'image' => 0,
+        'mass_contact' => 0,
+        'event' => 0,
+        'business_case' => 0,
+        'businesssupporters' => 0,
+        'communityassets' => 0,
+        'existing_business' => 0,
+        'people_tracking' => 0,
+        'folder' => 0,
+        'panel' => 0,
+        'book' => 0,
+        'group' => 0,
+        'help_page' => 0,
+        'idea' => 0,
+        'page' => 0,
+        'question' => 0,
+        'story' => 0,
+        'wikipage' => 0,
+      ),
+      'validate_argument_node_access' => 0,
+      'validate_argument_nid_type' => 'nid',
+      'validate_argument_vocabulary' => array(
+        8 => 0,
+        9 => 0,
+        7 => 0,
+        2 => 0,
+        5 => 0,
+        4 => 0,
+        1 => 0,
+        6 => 0,
+        3 => 0,
+      ),
+      'validate_argument_type' => 'tid',
+      'validate_argument_transform' => 0,
+      'validate_user_restrict_roles' => 0,
+      'image_size' => array(
+        '_original' => '_original',
+        'thumbnail' => 'thumbnail',
+        'preview' => 'preview',
+      ),
+      'validate_argument_is_member' => '0',
+      'validate_argument_group_node_type' => array(
+        'group' => 0,
+      ),
+      'validate_argument_php' => '',
+      'me_validate_user_restrict_roles' => 0,
+    ),
+  ));
   $handler->override_option('path', 'folders/root');
   $handler->override_option('menu', array(
     'type' => 'none',
@@ -227,9 +577,9 @@ function atrium_folders_views_default_views() {
       'field' => 'nid',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        '2' => 0,
-        '3' => 0,
-        '4' => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
       ),
       'override' => array(
         'button' => 'Use default',
@@ -255,7 +605,7 @@ function atrium_folders_views_default_views() {
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        '1' => 0,
+        1 => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
@@ -266,12 +616,6 @@ function atrium_folders_views_default_views() {
   ));
   $handler->override_option('block_description', '');
   $handler->override_option('block_caching', -1);
-  $translatables['folders'] = array(
-    t('Block children'),
-    t('Defaults'),
-    t('Folders'),
-    t('Page'),
-  );
 
   $views[$view->name] = $view;
 
@@ -280,10 +624,9 @@ function atrium_folders_views_default_views() {
   $view->name = 'folders_files';
   $view->description = 'Folder feature files.';
   $view->tag = '';
-  $view->view_php = '';
   $view->base_table = 'files';
-  $view->is_cacheable = FALSE;
-  $view->api_version = 2;
+  $view->core = 0;
+  $view->api_version = '2';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('relationships', array(
@@ -556,9 +899,9 @@ function atrium_folders_views_default_views() {
       'relationship' => 'vid',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        '2' => 0,
-        '3' => 0,
-        '4' => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
       ),
       'default_options_div_prefix' => '',
       'default_argument_fixed' => '',
@@ -580,7 +923,7 @@ function atrium_folders_views_default_views() {
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        '1' => 0,
+        1 => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
@@ -648,10 +991,6 @@ function atrium_folders_views_default_views() {
     ),
     'default' => '-1',
   ));
-  $translatables['folders_files'] = array(
-    t('Defaults'),
-    t('No files have been uploaded yet.'),
-  );
 
   $views[$view->name] = $view;
 
@@ -660,10 +999,9 @@ function atrium_folders_views_default_views() {
   $view->name = 'folders_folders';
   $view->description = 'Folder feature folders.';
   $view->tag = 'atrium';
-  $view->view_php = '';
   $view->base_table = 'node';
-  $view->is_cacheable = FALSE;
-  $view->api_version = 2;
+  $view->core = 0;
+  $view->api_version = '2';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -924,7 +1262,7 @@ function atrium_folders_views_default_views() {
       'relationship' => 'none',
     ),
   ));
-  $handler->override_option('path', 'folders/root');
+  $handler->override_option('path', 'folders/root2');
   $handler->override_option('menu', array(
     'type' => 'none',
     'title' => '',
@@ -1101,9 +1439,9 @@ function atrium_folders_views_default_views() {
       'field' => 'nid',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        '2' => 0,
-        '3' => 0,
-        '4' => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
       ),
       'override' => array(
         'button' => 'Use default',
@@ -1129,7 +1467,7 @@ function atrium_folders_views_default_views() {
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        '1' => 0,
+        1 => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
@@ -1140,15 +1478,6 @@ function atrium_folders_views_default_views() {
   ));
   $handler->override_option('block_description', '');
   $handler->override_option('block_caching', -1);
-  $translatables['folders_folders'] = array(
-    t('Block children'),
-    t('Defaults'),
-    t('Folders'),
-    t('Page'),
-  );
-
-  $views[$view->name] = $view;
-
   $handler = $view->new_display('block', 'Group folders Block', 'block_2');
   $handler->override_option('fields', array(
     'icon' => array(
@@ -1317,15 +1646,16 @@ print l(\'Add one.\', $group->purl. \'/node/add/folder\');
   $handler->override_option('block_description', '');
   $handler->override_option('block_caching', -1);
 
+  $views[$view->name] = $view;
+
   // Exported view: folders_navigation
   $view = new view;
   $view->name = 'folders_navigation';
   $view->description = 'Folder navgation';
   $view->tag = '';
-  $view->view_php = '';
   $view->base_table = 'node';
-  $view->is_cacheable = FALSE;
-  $view->api_version = 2;
+  $view->core = 0;
+  $view->api_version = '2';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->override_option('fields', array(
@@ -1429,9 +1759,9 @@ print l(\'Add one.\', $group->purl. \'/node/add/folder\');
       'field' => 'menu_trail',
       'validate_user_argument_type' => 'uid',
       'validate_user_roles' => array(
-        '2' => 0,
-        '3' => 0,
-        '4' => 0,
+        2 => 0,
+        3 => 0,
+        4 => 0,
       ),
       'relationship' => 'none',
       'default_options_div_prefix' => '',
@@ -1454,7 +1784,7 @@ print l(\'Add one.\', $group->purl. \'/node/add/folder\');
       'validate_argument_node_access' => 0,
       'validate_argument_nid_type' => 'nid',
       'validate_argument_vocabulary' => array(
-        '1' => 0,
+        1 => 0,
       ),
       'validate_argument_type' => 'tid',
       'validate_argument_transform' => 0,
@@ -1505,9 +1835,6 @@ print l(\'Add one.\', $group->purl. \'/node/add/folder\');
   $handler->override_option('style_options', array(
     'grouping' => '',
   ));
-  $translatables['folders_navigation'] = array(
-    t('Defaults'),
-  );
 
   $views[$view->name] = $view;
 
