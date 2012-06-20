@@ -458,6 +458,9 @@ function atrium_folders_views_default_views() {
       'me_validate_user_restrict_roles' => 0,
     ),
   ));
+  $handler->override_option('use_ajax', TRUE);
+  $handler->override_option('items_per_page', 20);
+  $handler->override_option('use_pager', '1');
   $handler->override_option('path', 'folders/root');
   $handler->override_option('menu', array(
     'type' => 'none',

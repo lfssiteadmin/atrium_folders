@@ -52,7 +52,7 @@ function atrium_folders_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'comment_folder';
-  $strongarm->value = '2';
+  $strongarm->value = '0';
   $export['comment_folder'] = $strongarm;
 
   $strongarm = new stdClass;
@@ -131,12 +131,7 @@ function atrium_folders_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'notifications_content_type_folder';
-  $strongarm->value = array(
-    0 => 'thread',
-    1 => 'nodetype',
-    2 => 'author',
-    3 => 'typeauthor',
-  );
+  $strongarm->value = array();
   $export['notifications_content_type_folder'] = $strongarm;
 
   $strongarm = new stdClass;
