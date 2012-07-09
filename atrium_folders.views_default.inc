@@ -458,6 +458,7 @@ function atrium_folders_views_default_views() {
       'me_validate_user_restrict_roles' => 0,
     ),
   ));
+  $handler->override_option('title', 'Group Folders');
   $handler->override_option('use_ajax', TRUE);
   $handler->override_option('items_per_page', 20);
   $handler->override_option('use_pager', '1');
@@ -1096,6 +1097,11 @@ function atrium_folders_views_default_views() {
       ),
       'relationship' => 'none',
     ),
+    'depth' => array(
+      'id' => 'depth',
+      'table' => 'book_menu_links',
+      'field' => 'depth',
+    ),
   ));
   $handler->override_option('access', array(
     'type' => 'none',
@@ -1620,10 +1626,80 @@ function atrium_folders_views_default_views() {
       'relationship' => 'none',
     ),
   ));
-  $handler->override_option('title', 'Group folders');
+  $handler->override_option('filters', array(
+    'type' => array(
+      'operator' => 'in',
+      'value' => array(
+        'folder' => 'folder',
+      ),
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'type',
+      'table' => 'node',
+      'field' => 'type',
+      'relationship' => 'none',
+    ),
+    'status' => array(
+      'operator' => '=',
+      'value' => '1',
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'status',
+      'table' => 'node',
+      'field' => 'status',
+      'relationship' => 'none',
+    ),
+    'picg' => array(
+      'operator' => '=',
+      'value' => '',
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'picg',
+      'table' => 'og_ancestry',
+      'field' => 'picg',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
+    'depth' => array(
+      'operator' => '=',
+      'value' => array(
+        'value' => '1',
+        'min' => '',
+        'max' => '',
+      ),
+      'group' => '0',
+      'exposed' => FALSE,
+      'expose' => array(
+        'operator' => FALSE,
+        'label' => '',
+      ),
+      'id' => 'depth',
+      'table' => 'book_menu_links',
+      'field' => 'depth',
+      'override' => array(
+        'button' => 'Use default',
+      ),
+      'relationship' => 'none',
+    ),
+  ));
+  $handler->override_option('title', 'Main Group folders');
   $handler->override_option('header', '<?php
 $group = og_determine_context();
-print l(\'+ New top-level group folder\', $group->purl. \'/node/add/folder\');
+print l(\'+ New main group folder\', $group->purl. \'/node/add/folder\');
 ?>');
   $handler->override_option('header_format', '2');
   $handler->override_option('header_empty', 0);
