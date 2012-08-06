@@ -446,8 +446,8 @@ function _atrium_folders_get_files_in_group($gid, $limit=NULL) {
       ON u.fid = f.fid
     INNER JOIN {og_ancestry} og
       ON og.nid = u.nid
-    WHERE group_nid = %d
-    ORDER BY u.fid DESC", $gid, 0, $limit);
+    WHERE group_nid = %d AND f.status=1
+    ORDER BY f.timestamp DESC", $gid, 0, $limit);
   while ($file = db_fetch_array($result)) {
     $files[] = $file;
   }
