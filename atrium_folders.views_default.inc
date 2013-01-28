@@ -1048,6 +1048,16 @@ function atrium_folders_views_default_views() {
       'field' => 'weight',
       'relationship' => 'none',
     ),
+    'title' => array(
+      'order' => 'ASC',
+      'id' => 'title',
+      'table' => 'node',
+      'field' => 'title',
+      'override' => array(
+        'button' => 'Override',
+      ),
+      'relationship' => 'none',
+    ),
   ));
   $handler->override_option('filters', array(
     'type' => array(
@@ -1958,6 +1968,8 @@ print l(\'Add one.\', $group->purl. \'/node/add/folder\');
   $handler->override_option('header', 'Files uploaded to group folders and other group content.');
   $handler->override_option('header_format', '1');
   $handler->override_option('header_empty', 0);
+  $handler->override_option('footer_format', '2');
+  $handler->override_option('footer_empty', 0);
   $handler->override_option('use_ajax', TRUE);
   $handler->override_option('items_per_page', 25);
   $handler->override_option('use_pager', '1');
@@ -2129,8 +2141,6 @@ print "<br/>";
 print l("View and search all files", "filesearch");
 ?>');
   $handler->override_option('header_format', '2');
-  $handler->override_option('footer_format', '2');
-  $handler->override_option('footer_empty', 0);
   $handler->override_option('empty', 'There are no files in this group, yet.');
   $handler->override_option('empty_format', '2');
   $handler->override_option('items_per_page', 10);
